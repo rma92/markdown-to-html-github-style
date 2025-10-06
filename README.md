@@ -96,13 +96,13 @@ Inline `code` comments are `100`
 <table>
   <tr>
     <td>
-      <img src="demo/screenshot1_framed.jpg">
+    Put Image
     </td>
     <td>
-      <img src="demo/screenshot2_framed.jpg">
+    Put Image
     </td>
     <td>
-      <img src="demo/screenshot3_framed.jpg">
+    Put Image
     </td>
   </tr>
 </table>

@@ -1,8 +1,8 @@
+//usage node convert.js [filename.md [title]]
 var showdown  = require('showdown');
 var fs = require('fs');
-let filename = process.argv[4] || "README.md"
-let pageTitle = process.argv[2] || ""
-let plausibleDomain = process.argv[3] || ""
+let filename = process.argv[2] || "README.md"
+let pageTitle = process.argv[3] || ""
 var hljs = require ('highlight.js');
 
 showdown.extension('highlight', function () {
@@ -51,31 +51,23 @@ fs.readFile(__dirname + '/style.css', function (err, styleData) {
         tables: true
       });
 
-      var preContent = `
-      <html>
-        <head>
-          <title>` + pageTitle + `</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1">
-          <meta charset="UTF-8">`
+      var preContent = `<!DOCTYPE HTML>
+<html>
+<head>
+<title>` + pageTitle + `</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">`
 
-      if (plausibleDomain.length > 0) {
-        preContent += `
-          <script defer data-domain="` + plausibleDomain + `" src="https://plausible.io/js/script.js"></script>
-        `
-      }
-      preContent += `
-        </head>
-        <body>
-          <div id='content'>
-      `
+      preContent += `</head>
+<body>
+<div id='content'>
+`
 
-      let postContent = `
-
-          </div>
-          <style type='text/css'>` + styleData + `</style>
-          <style type='text/css'>` + highlightingStyles + `</style>
-        </body>
-      </html>`;
+      let postContent = `</div>
+<style type='text/css'>` + styleData + `</style>
+<style type='text/css'>` + highlightingStyles + `</style>
+</body>
+</html>`;
 
       html = preContent + converter.makeHtml(text) + postContent
 

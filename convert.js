@@ -1,8 +1,9 @@
-//usage node convert.js [filename.md [title]]
+//usage node convert.js [filename.md [title [outfile.html]]]
 var showdown  = require('showdown');
 var fs = require('fs');
 let filename = process.argv[2] || "README.md"
 let pageTitle = process.argv[3] || ""
+let outFilePath = process.argv[4] || ""
 var hljs = require ('highlight.js');
 
 showdown.extension('highlight', function () {
@@ -75,7 +76,11 @@ fs.readFile(__dirname + '/style.css', function (err, styleData) {
       // console.log(html);
 
       let markdownFileNameWithoutPath = filename.replace(".md", ".html")
-      let filePath = process.cwd() + "/" + markdownFileNameWithoutPath
+      let filePath = process.cwd() + "/" + markdownFileNameWithoutPath;
+      if( outFilePath != "" )
+      {
+        filePath = outFilePath;
+      }
       fs.writeFile(filePath, html, { flag: "wx" }, function(err) {
         if (err) {
           console.log("File '" + filePath + "' already exists. Aborted!");
